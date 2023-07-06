@@ -405,7 +405,7 @@ export default function DetailNanny() {
                                     name="read-only"
                                     value={calculateAverageRating(nanny.rating)}
                                     readOnly
-                                    precision={0.5}
+                                    precision={0.1}
                                     sx={{ fontSize: '58px' }}
                                 />
                             </div>
