@@ -23,25 +23,12 @@ const style = {
     p: 4,
 };
 
-const styleDelete = {
-    position: 'absolute',
-    top: '40%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
-
 export default function DetailNanny() {
     const [nannys, setNannys] = React.useState([]);
     const { id } = useParams();
     var isLogin = localStorage.getItem('isLogin');
 
     const [open, setOpen] = React.useState(false);
-    const [openDelete, setOpenDelete] = React.useState(false);
 
     const [value, setValue] = React.useState(2);
     const [isBooking, setIsBooking] = React.useState(false);
@@ -69,7 +56,6 @@ export default function DetailNanny() {
     }, []);
 
     const nanny = nannys.find((nanny) => nanny.id === id);
-    console.log(nanny);
 
     function getNannyLanguages(nanny) {
         if (nanny) {
@@ -131,8 +117,6 @@ export default function DetailNanny() {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const handleOpenDelete = () => setOpenDelete(true);
-    const handleCloseDelete = () => setOpenDelete(false);
 
     const BookingButton = styled(Button)({
         backgroundColor: '#007320',
@@ -237,7 +221,7 @@ export default function DetailNanny() {
         };
         axios.post('https://babybuddies-be-dev.onrender.com/api/v1/bookings/store', formData).then(() => {
             setIsBooking(false);
-            setMessage('');
+            setMessage('')
         });
     };
 
@@ -461,7 +445,7 @@ export default function DetailNanny() {
                                             Rating :
                                         </Typography>
                                         <Typography sx={{ marginLeft: 8 }}>
-                                            <Rating
+                                            <Rating                                          
                                                 size="large"
                                                 name="simple-controlled"
                                                 value={value}
@@ -498,81 +482,43 @@ export default function DetailNanny() {
                             </div>
                         </div>
                     </div>
-
+                    <div className={styles.container2}>
+                        <span
+                            style={{
+                                fontWeight: 'bold',
+                                marginLeft: '4px',
+                                fontSize: '20px',
+                                display: 'block',
+                                width: '100%',
+                            }}
+                        >
+                            Write comment
+                        </span>
+                        <textarea
+                            style={{
+                                boxSizing: 'border-box',
+                                width: '100%',
+                                height: '102px',
+                                backgroundColor: '#94c594',
+                                border: 'none',
+                            }}
+                        ></textarea>
+                    </div>
                     <span className={styles.commentText}>previous comment</span>
                     <div className={styles.container3}>
                         {nanny &&
                             nanny.rating.map((item, index) => (
                                 <div key={index} className={styles.prevComment}>
-                                    <div className={styles.close}>
-                                        <span style={{ fontWeight: 'bold', marginLeft: '16px' }}>
-                                            {item.star}
-                                            <span className={styles.greenStar2}>&#9733;</span>
-                                        </span>
-                                        <span className={styles.delete} onClick={handleOpenDelete}>
-                                            X
-                                        </span>
-                                        <Modal
-                                            open={openDelete}
-                                            onClose={handleCloseDelete}
-                                            aria-labelledby="modal-modal-title1"
-                                            aria-describedby="modal-modal-description1"
-                                        >
-                                            {/* Modal delete */}
-                                            <Box sx={styleDelete} borderRadius={5} border="1px solid">
-                                                <Typography
-                                                    id="modal-modal-title1"
-                                                    variant="h6"
-                                                    component="h2"
-                                                    fontWeight="bold"
-                                                    fontSize="28px"
-                                                    textAlign={'center'}
-                                                >
-                                                    Delete Comment?
-                                                </Typography>
-                                                <Typography
-                                                    id="modal-modal-description"
-                                                    sx={{ mt: 2 }}
-                                                    fontWeight="bold"
-                                                    textAlign={'center'}
-                                                >
-                                                    Are you sure want to delete the comment ? Once deleted, it the
-                                                    comment? Once deleteed, it cannot be restored.
-                                                </Typography>
-
-                                                <Typography
-                                                    sx={{
-                                                        marginTop: '20px',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        display: 'flex',
-                                                    }}
-                                                >
-                                                    <Typography>
-                                                        <MyButton onClick={handleCloseDelete}>Cancel</MyButton>
-                                                        <MyButton
-                                                            sx={{ marginRight: '5px' }}
-                                                            // onClick={() => handleDeleteCustomer(nanny.id)}
-                                                        >
-                                                            Delete
-                                                        </MyButton>
-                                                    </Typography>
-                                                </Typography>
-                                            </Box>
-                                        </Modal>
-                                    </div>
+                                    <span style={{ fontWeight: 'bold', marginLeft: '16px' }}>
+                                        {item.star}
+                                        <span className={styles.greenStar2}>&#9733;</span>
+                                    </span>
                                     <br />
-                                    <span
-                                        style={{
-                                            marginLeft: '16px',
-                                            display: 'block',
-                                            marginBottom: '12px',
-                                        }}
-                                    >
+                                    <span style={{ marginLeft: '16px', display: 'block', marginBottom: '12px' }}>
                                         {item.review}
                                     </span>
                                 </div>
-                            ))}{' '}
+                            ))}
                     </div>
                 </div>
             )}
