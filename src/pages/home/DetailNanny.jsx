@@ -446,6 +446,7 @@ export default function DetailNanny() {
                                         </Typography>
                                         <Typography sx={{ marginLeft: 8 }}>
                                             <Rating
+                                                style={{ color: '#0246FF' }}
                                                 size="large"
                                                 name="simple-controlled"
                                                 value={value}
