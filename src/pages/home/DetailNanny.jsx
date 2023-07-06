@@ -445,7 +445,7 @@ export default function DetailNanny() {
                                             Rating :
                                         </Typography>
                                         <Typography sx={{ marginLeft: 8 }}>
-                                            <Rating                                          
+                                            <Rating
                                                 size="large"
                                                 name="simple-controlled"
                                                 value={value}

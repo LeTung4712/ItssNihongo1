@@ -254,6 +254,21 @@ export default function ListNanny() {
         else return averageRating;
     }
 
+    function roundNumber(number) {
+        return Math.round(number * 10) / 10;
+    }
+
+    function removeCommaAtStartAndEnd(sentence) {
+        let result = sentence.trim(); // Xóa khoảng trắng ở đầu và cuối chuỗi
+        if (result.startsWith(',')) {
+            result = result.slice(1); // Xóa dấu chấm (,) ở đầu chuỗi
+        }
+        if (result.endsWith(',')) {
+            result = result.slice(0, -1); // Xóa dấu chấm (,) ở cuối chuỗi
+        }
+        return result;
+    }
+
     // format số tiền 100000 => 100,000
     function formatNumber(number) {
         const formattedNumber = number.toLocaleString('en-US');
@@ -642,7 +657,7 @@ export default function ListNanny() {
 
                                                     <Typography sx={{ display: 'flex' }} fontWeight="bold">
                                                         <Typography fontWeight="bold" sx={{ fontSize: '18px' }}>
-                                                            {calculateAverageRating(nanny.rating)}
+                                                            {roundNumber(calculateAverageRating(nanny.rating))}
                                                         </Typography>
                                                         <GradeIcon />
                                                     </Typography>
@@ -676,7 +691,8 @@ export default function ListNanny() {
                                                     {nanny.user_language ? (
                                                         nanny.user_language.map((language) => (
                                                             <Typography marginLeft={1} key={language.id}>
-                                                                {language.name}{' '}
+                                                                {/* {language.name}, */}
+                                                                {removeCommaAtStartAndEnd(language.name + ',')}
                                                             </Typography>
                                                         ))
                                                     ) : (
